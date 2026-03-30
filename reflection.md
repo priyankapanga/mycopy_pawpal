@@ -2,10 +2,24 @@
 
 ## 1. System Design
 
+The streamlit app should be able to allow the user to at least add their activity, pet, and see their schedule for the day.
+
+Classes:
+Owner: Attributes are name, preferences. A function can be checkavailability() that can be caused while scheduling. Another attribute can contain their schedule
+Pet: Attributes can be pet name, age
+Activity: Attributes can be the name of the specific activity, as well as the time it needs.
+
 **a. Initial design**
 
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
+
+Answer: 
+My intitial design is: 
+Classes:
+Owner: Attributes are name, preferences. A function can be checkavailability() that can be caused while scheduling. Another attribute can contain their schedule. 
+Pet: Attributes can be pet name, age
+Activity: Attributes can be the name of the specific activity, as well as the time it needs.
 
 **b. Design changes**
 
