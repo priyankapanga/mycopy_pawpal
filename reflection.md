@@ -17,9 +17,9 @@ Activity: Attributes can be the name of the specific activity, as well as the ti
 Answer: 
 My intitial design is: 
 Classes:
-Owner: Attributes are name, preferences. A function can be checkavailability() that can be caused while scheduling. Another attribute can contain their schedule. 
-Pet: Attributes can be pet name, age
-Activity: Attributes can be the name of the specific activity, as well as the time it needs.
+Owner: Attributes are name, preferences. A function can be checkavailability() that can be caused while scheduling. Another attribute is their schedule. 
+Pet: Attributes are pet name, age
+Activity: Attributes are  the name of the specific activity, as well as the time it needs.
 
 **b. Design changes**
 
