@@ -34,20 +34,13 @@ pip install -r requirements.txt
 
 ### Suggested workflow
 
-1. Read the scenario carefully and identify requirements and edge cases.
-2. Draft a UML diagram (classes, attributes, methods, relationships).
-3. Convert UML into Python class stubs (no logic yet).
-4. Implement scheduling logic in small increments.
-5. Add tests to verify key behaviors.
-6. Connect your logic to the Streamlit UI in `app.py`.
-7. Refine UML so it matches what you actually built.
+PawPal+ has many features! 
 
-PawPal+ Features
-Data Model
 Task — stores description, duration (minutes), priority (low/medium/high), frequency (once/daily/weekly), optional fixed start time, and completion status
 Pet — holds a list of tasks; can retrieve only pending tasks
 Owner — manages multiple pets; aggregates all tasks across them as flat tuples
 Scheduler — manages multiple owners; traverses the full Scheduler → Owner → Pet → Task hierarchy to collect, filter, and sort tasks
+
 Scheduling Logic
 Fixed vs. floating tasks — tasks with a start_time are anchored; tasks without one are unscheduled and can be ordered by priority
 Priority-based ordering — when no sort is selected, the schedule defaults to high → medium → low globally across all pets
@@ -68,3 +61,7 @@ Persistent state — owner, pets, and tasks survive page reruns via st.session_s
 Inline complete button — per-task button marks complete and triggers recurrence if applicable
 Conflict warnings — displayed as banners in the schedule view
 Clear sort — radio selection can be reset to restore default priority ordering
+
+Demo
+![alt text](image1.png)
+![alt text](image2.png)
