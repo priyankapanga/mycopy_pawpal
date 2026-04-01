@@ -2,6 +2,64 @@ import streamlit as st
 from pawpal_system import Task, Pet, Owner, Scheduler
 
 st.set_page_config(page_title="PawPal+", page_icon="🐾", layout="centered")
+
+st.markdown("""
+<style>
+    /* Background */
+    .stApp {
+        background: linear-gradient(135deg, #f0ebff 0%, #e8f4ff 100%);
+    }
+
+    /* Main title */
+    h1 { color: #6a4bc4; }
+
+    /* Subheaders */
+    h2, h3 { color: #5b7ec9; }
+
+    /* Buttons */
+    .stButton > button {
+        background-color: #c3b1e1;
+        color: #3b2a6e;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+    .stButton > button:hover {
+        background-color: #a98fd4;
+        color: white;
+    }
+
+    /* Input fields */
+    .stTextInput input, .stNumberInput input, .stTimeInput input {
+        border: 1.5px solid #c3b1e1;
+        border-radius: 8px;
+        background-color: #faf8ff;
+    }
+
+    /* Selectbox */
+    .stSelectbox > div > div {
+        border: 1.5px solid #c3b1e1;
+        border-radius: 8px;
+        background-color: #faf8ff;
+    }
+
+    /* Divider */
+    hr { border-color: #d4c5f9; }
+
+    /* Success / warning / error banners */
+    .stSuccess  { background-color: #e6f9f0; border-left: 4px solid #6ec9a0; }
+    .stWarning  { background-color: #fff8e6; border-left: 4px solid #f9c86e; }
+    .stError    { background-color: #ffeef0; border-left: 4px solid #f9909a; }
+
+    /* Radio buttons */
+    .stRadio > label { color: #6a4bc4; font-weight: 500; }
+
+    /* Table */
+    .stTable { background-color: #faf8ff; border-radius: 10px; }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🐾 PawPal+")
 
 # --- Session state setup ---
