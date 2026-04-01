@@ -1,18 +1,25 @@
 from dataclasses import dataclass
+from datetime import datetime, timedelta
 
 @dataclass
 class Task:
     description: str
-    time: str
-    frequency: str
+    duration: int              # in minutes
+    priority: str              # "low", "medium", or "high"
+    frequency: str = "once"    # "once", "daily", or "weekly"
+    start_time: str = ""       # optional scheduled start, e.g. "9:00 AM"
     completed: bool = False
 
     def mark_complete(self):
+        """Mark this task complete. Returns a new Task for the next occurrence if recurring."""
         self.completed = True
+        if self.frequency in ("daily", "weekly"):
+            return Task(self.description, self.duration, self.priority, self.frequency, self.start_time)
+        return None
 
     def __repr__(self):
         status = "Done" if self.completed else "Pending"
-        return f"Task('{self.description}', time='{self.time}', frequency='{self.frequency}', status={status})"
+        return f"Task('{self.description}', duration={self.duration}min, priority='{self.priority}', frequency='{self.frequency}', status={status})"
 
 
 class Pet:
@@ -71,10 +78,36 @@ class Scheduler:
         """Return only incomplete tasks across all owners and pets."""
         return [(owner, pet, task) for owner, pet, task in self.get_all_tasks() if not task.completed]
 
-    def get_tasks_by_frequency(self, frequency: str) -> list[tuple[str, str, Task]]:
-        """Return all tasks matching the given frequency (e.g. 'daily', 'weekly')."""
-        return [(owner, pet, task) for owner, pet, task in self.get_all_tasks()
-                if task.frequency.lower() == frequency.lower()]
+    def detect_conflicts(self) -> list[str]:
+        """Return warnings for any two fixed tasks whose windows overlap.
+        Since one owner handles all pets, overlapping tasks across any pets count as conflicts."""
+        fmt = "%I:%M %p"
+        fixed = [
+            (owner_name, pet_name, task)
+            for owner_name, pet_name, task in self.get_all_tasks()
+            if task.start_time and not task.completed
+        ]
+        warnings = []
+        for i, (owner_a, pet_a, task_a) in enumerate(fixed):
+            start_a = datetime.strptime(task_a.start_time, fmt)
+            end_a = start_a + timedelta(minutes=task_a.duration)
+            for owner_b, pet_b, task_b in fixed[i + 1:]:
+                start_b = datetime.strptime(task_b.start_time, fmt)
+                end_b = start_b + timedelta(minutes=task_b.duration)
+                if start_a < end_b and end_a > start_b:
+                    same_pet = pet_a == pet_b
+                    reason = "same pet" if same_pet else f"{owner_a} can't do both at once"
+                    warnings.append(
+                        f"Conflict ({reason}): '{task_a.description}' ({pet_a}) "
+                        f"{task_a.start_time}–{end_a.strftime(fmt)} overlaps "
+                        f"'{task_b.description}' ({pet_b}) "
+                        f"{task_b.start_time}–{end_b.strftime(fmt)}."
+                    )
+        return warnings
+
+    def sort_by_duration(self) -> list[tuple[str, str, Task]]:
+        """Return all tasks sorted by duration (shortest first)."""
+        return sorted(self.get_all_tasks(), key=lambda x: x[2].duration)
 
     def summary(self) -> None:
         """Print a summary of all tasks grouped by owner and pet."""
