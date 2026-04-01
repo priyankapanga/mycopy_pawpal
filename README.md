@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 ### Suggested workflow
 
-PawPal+ has many features! 
+PawPal+ has many features!
 
 Task — stores description, duration (minutes), priority (low/medium/high), frequency (once/daily/weekly), optional fixed start time, and completion status
 Pet — holds a list of tasks; can retrieve only pending tasks
@@ -63,5 +63,5 @@ Conflict warnings — displayed as banners in the schedule view
 Clear sort — radio selection can be reset to restore default priority ordering
 
 Demo
-![alt text](image1.png)
-![alt text](image2.png)
+![Photo of website showing main page](image.png)
+![Photo of website showing schedule](image2.png)
